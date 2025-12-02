@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Surpresa Especial ❤️</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+    body { background: linear-gradient(135deg, #ff9ecb, #ff5ea1); min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; color: #330033; }
+    h1, p, label { color: #330033; }
+    input { padding: 10px; border-radius: 8px; border: 1px solid #ff5ea1; width: 80%; max-width: 400px; margin-bottom: 10px; color: #330033; background: #fff0f5; }
+    .btn { margin-top: 20px; padding: 15px 30px; background: #ff5ea1; color: white; font-size: 1.3rem; border-radius: 30px; text-decoration: none; font-weight: bold; box-shadow: 0 0 15px rgba(255,255,255,0.4); animation: pulse 2s infinite; cursor: pointer; border: none; }
+    @keyframes fadeIn { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
+    @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+    #carta { display: none; margin-top: 30px; background: #ffe6f2; color: #330033; padding: 25px; border-radius: 15px; max-width: 500px; box-shadow: 0 0 25px rgba(255,255,255,0.5); animation: fadeIn 1s ease; }
+    .hearts { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: hidden; }
+    .heart { position: absolute; color: rgba(255, 0, 128,0.8); font-size: 20px; animation: floatUp 6s linear infinite; }
+    @keyframes floatUp { 0% { transform: translateY(100vh) scale(0.5); } 100% { transform: translateY(-10vh) scale(1.2); } }
+    .cartaExtra { animation: aparecerSuave 1.5s ease, flutuar 3s ease-in-out infinite; margin-top: 30px; background: #ffe6f2; color: #330033; padding: 25px; border-radius: 15px; max-width: 500px; box-shadow: 0 0 25px rgba(255,255,255,0.5); }
+    @keyframes aparecerSuave { 0% { opacity: 0; transform: scale(0.8) translateY(20px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
+    @keyframes flutuar { 0% { transform: translateY(0); } 50% { transform: translateY(-8px); } 100% { transform: translateY(0); } }
+  </style>
+</head>
+<body>
+  <div id="verificacao" style="text-align:center;">
+    <h1>Confirmação de Identidade 💖</h1>
+    <p>Responda para provar que é você!</p>
+    <div style="margin-top:20px;">
+      <label>Onde a gente se conheceu?</label><br>
+      <input id="q1" placeholder="Digite aqui..."><br>
+      <label>Quando a gente ficou próximo?</label><br>
+      <input id="q2" placeholder="Digite aqui..."><br>
+      <label>Qual é minha idade?</label><br>
+      <input id="q3" placeholder="Digite aqui..."><br>
+      <label>Qual é a sua idade?</label><br>
+      <input id="q4" placeholder="Digite aqui..."><br>
+      <label>Qual é o seu nome?</label><br>
+      <input id="q5" placeholder="Digite aqui..."><br>
+      <button class="btn" onclick="verificarRespostas()">Confirmar 💘</button>
+    </div>
+  </div>
+  <div id="conteudo" style="display:none;">
+    <h1>Oi ❤️</h1>
+    <p>Preparei isso só pra você… porque você merece todas as fofuras do mundo!</p>
+    <a class="btn" onclick="mostrarCarta()">Clique aqui 😍</a>
+    <div id="carta" style="display:none;">
+      <h2>Para você 💌</h2>
+      <p>Em um mês tanta coisa mudou… de um beijinho na testa tímido pra um abraço longo. Eu sei que faz só um mês, mas já amo você. Perto de você me sinto seguro, posso falar tudo mesmo com vergonha. Te gosto como o vento gosta de bagunçar o cabelo. Eu te amo como amo um domingo preguiçoso. Te adoro como abraço apertado adora durar. Meu coração samba… nem é Carnaval, mas ele pula de alegria quando penso em você.</p>
+    </div>
+    <div class="hearts" id="hearts"></div>
+    <div id="extras" style="display:none; margin-top:40px;">
+      <a class="btn" onclick="mostrarCartaExtra('c1')">Carta Especial 💌</a>
+    </div>
+    <div id="c1" class="cartaExtra" style="display:none;">
+      <h2>Carta Especial 💌</h2>
+      <p>Meu coração samba… nem é Carnaval, mas ele pula de alegria quando penso em você. ❤️</p>
+    </div>
+  </div>
+  <script>
+    function verificarRespostas() {
+      const r1 = document.getElementById('q1').value.toLowerCase();
+      const r2 = document.getElementById('q2').value.toLowerCase();
+      const r3 = document.getElementById('q3').value;
+      const r4 = document.getElementById('q4').value;
+      const r5 = document.getElementById('q5').value.toLowerCase();
+      if (r1.includes('ifce de paracuru') && (r2.includes('sebrae') || r2.includes('ônibus') || r2.includes('onibus')) && r3 === '19' && r4 === '23' && (r5.includes('adyla') || r5.includes('adyla da silva moreira'))) {
+        document.getElementById('verificacao').style.display = 'none';
+        document.getElementById('conteudo').style.display = 'block';
+      } else {
+        alert('Respostas erradas 😢 Tenta de novo!');
+      }
+    }
+    function mostrarCarta() {
+      document.getElementById("carta").style.display = "block";
+      soltarCoracoes();
+    }
+    function mostrarCartaExtra(id) {
+      document.querySelectorAll('.cartaExtra').forEach(c => c.style.display = 'none');
+      document.getElementById(id).style.display = 'block';
+      soltarCoracoes();
+    }
+    const originalVerificar = verificarRespostas;
+    verificarRespostas = function() {
+      originalVerificar();
+      if (document.getElementById('conteudo').style.display === 'block') {
+        document.getElementById('extras').style.display = 'block';
+      }
+    }
+    function soltarCoracoes() {
+      const container = document.getElementById("hearts");
+      for (let i = 0; i < 30; i++) {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = 3 + Math.random() * 3 + "s";
+        heart.innerHTML = "❤";
+        container.appendChild(heart);
+        setTimeout(() => heart.remove(), 6000);
+      }
+    }
+  </script>
+</body>
+</html>
