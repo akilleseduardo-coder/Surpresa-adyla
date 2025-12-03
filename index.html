@@ -1,168 +1,140 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<title>Surpresa Para Você 💖</title>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Surpresa Especial ❤️</title>
 <style>
-  body {
-    background: linear-gradient(180deg, #ffe6f2, #ffb3d9);
-    font-family: 'Arial', sans-serif;
-    text-align: center;
-    color: #333;
-    overflow-x: hidden;
+  :root{
+    --bg1: #ff9ecb;
+    --bg2: #ff5ea1;
+    --accent: #ff2e85;
+    --text-dark: #330033;
+    --card-bg: #fff0f5;
   }
 
-  h1, h2 {
-    color: #d63384;
-    text-shadow: 0 0 8px rgba(255, 0, 150, 0.3);
+  html,body{height:100%;margin:0;font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;}
+  body{
+    background: linear-gradient(135deg,var(--bg1),var(--bg2));
+    display:flex;
+    align-items:flex-start;
+    justify-content:center;
+    padding:24px;
+    box-sizing:border-box;
+    color:var(--text-dark);
   }
 
-  input, button {
-    padding: 12px;
-    font-size: 18px;
-    border-radius: 10px;
-    border: none;
-    margin: 6px;
+  .wrap{
+    width:100%;
+    max-width:760px;
+    text-align:center;
   }
 
-  button {
-    background: #ff4da6;
-    color: white;
-    cursor: pointer;
-    transition: 0.3s;
+  header{
+    position:relative;
+    z-index:20;
+    margin-top:24px;
+    margin-bottom:10px;
   }
-  button:hover {
-    transform: scale(1.1);
-    background: #ff74bc;
+  header h1{
+    font-size:2.6rem;
+    margin:0 0 8px 0;
+    line-height:1;
+    font-weight:800;
+    color:var(--text-dark);
+    position:relative;
+    z-index:10;
+    animation: fadeInDown 900ms ease-out both;
   }
-
-  .heart {
-    position: fixed;
-    top: -10px;
-    color: #ff4da6;
-    font-size: 20px;
-    animation: fall 4s linear infinite;
-  }
-
-  @keyframes fall {
-    from { transform: translateY(-10px); opacity: 1; }
-    to   { transform: translateY(110vh); opacity: 0; }
+  @keyframes fadeInDown {
+    from { opacity:0; transform: translateY(-18px); }
+    to   { opacity:1; transform: translateY(0); }
   }
 
-  #slideshow img {
-    width: 300px;
-    display: none;
-    border-radius: 15px;
-    margin-top: 20px;
-    box-shadow: 0px 0px 20px rgba(255, 0, 120, 0.4);
-    animation: fade 1s ease-in-out;
-  }
-  @keyframes fade {
-    from { opacity: 0; }
-    to { opacity: 1; }
+  header p.lead{
+    margin:6px 0 18px 0;
+    font-size:1.05rem;
+    color:var(--text-dark);
   }
 
-  #mazeCanvas {
-    border: 3px solid #d63384;
-    background: white;
-    margin-top: 20px;
-    display: none;
+  .verify {
+    background: rgba(255,255,255,0.9);
+    padding:18px;
+    border-radius:16px;
+    box-shadow: 0 6px 22px rgba(0,0,0,0.12);
+    margin-bottom:18px;
+  }
+  .verify label{
+    display:block;
+    margin:8px 0 6px;
+    text-align:left;
+    font-weight:600;
+  }
+  .verify input{
+    width:100%;
+    padding:10px 12px;
+    border-radius:10px;
+    border:1px solid rgba(255,94,161,0.6);
+    background:var(--card-bg);
+    color:var(--text-dark);
+    font-size:1rem;
+    outline:none;
+    box-sizing:border-box;
+  }
+  .btn {
+    display:inline-block;
+    margin-top:14px;
+    padding:12px 26px;
+    border-radius:30px;
+    background:var(--accent);
+    color:#fff;
+    font-weight:800;
+    font-size:1.05rem;
+    border:none;
+    cursor:pointer;
+    box-shadow: 0 8px 20px rgba(255,46,133,0.18);
+  }
+
+  .content{
+    display:none;
+    margin-top:14px;
+  }
+  .card {
+    margin: 12px auto;
+    max-width:720px;
+    background:#ffe6f2;
+    color:var(--text-dark);
+    padding:18px;
+    border-radius:16px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+  }
+  .card h2{ margin-top:0; font-size:1.5rem; }
+  .card p{ font-size:1.05rem; line-height:1.5; margin:10px 0 0; }
+
+  #extras { display:none; margin-top:16px; }
+
+  #labWrap{ display:none; margin-top:20px; }
+  #mazeCanvas{ background:#fff; border-radius:10px; border:4px solid var(--text-dark); display:block; margin:0 auto; }
+
+  .controls{ margin-top:10px; display:flex; gap:8px; justify-content:center; flex-wrap:wrap; }
+  .controls button{ padding:10px 14px; border-radius:8px; background:#ff5ea1; color:#fff; border:none; font-weight:700; }
+
+  #finalPhotos{ display:none; margin-top:18px; }
+  .slideshowWrap{ position:relative; width:100%; max-width:640px; margin:0 auto; border-radius:14px; overflow:hidden; box-shadow:0 12px 30px rgba(0,0,0,0.12);}
+  .slideshowWrap img{ width:100%; height:auto; display:block; opacity:0; transition:opacity 700ms ease; }
+  .slideshowWrap img.show { opacity:1; }
+
+  .timerBox{ margin:12px 0 12px; background:rgba(255,255,255,0.9); padding:12px; border-radius:12px; display:inline-block; color:var(--text-dark); }
+  .timerBox div{ font-weight:700; font-size:1rem; }
+
+  @media (max-width:520px){
+    header h1{ font-size:2.1rem; margin-top:32px; }
+    .verify input{ font-size:0.95rem; }
+    .card p{ font-size:1rem; }
   }
 </style>
 </head>
-
 <body>
-<div id="intro" style="margin-top:40px; animation: fade 1s ease-in-out;">
-  <h1>Tenho uma surpresa pra você, meu amor 💖</h1>
-  <p style="font-size:20px; color:#d63384; margin-top:10px;">Clique no botão abaixo para começar ✨</p>
-  <button onclick="startIntro()" style="margin-top:20px; padding:14px 25px; font-size:20px;">Começar 💕</button>
-</div>
-
-<script>
-function startIntro(){
-  document.getElementById("intro").style.display = "none";
-  document.getElementById("quiz").style.display = "block";
-}
-</script>
-
-<h1>Oi, meu amor 💖</h1>
-
-<div id="quiz" style="display:none;">
-  <h2>Responde aqui, minha princesa 💕</h2>
-
-  <p>1. Onde a gente se conheceu?</p>
-  <input id="q1" placeholder="Digite aqui...">
-
-  <p>2. Quando a gente ficou próximo?</p>
-  <input id="q2" placeholder="Digite aqui...">
-
-  <p>3. Minha idade?</p>
-  <input id="q3" placeholder="Digite aqui...">
-
-  <p>4. Sua idade?</p>
-  <input id="q4" placeholder="Digite aqui...">
-
-  <p>5. Seu nome?</p>
-  <input id="q5" placeholder="Digite aqui...">
-
-  <p>6. Qual meu nome?</p>
-  <input id="q6" placeholder="Digite aqui...">
-
-  <br><br>
-  <button onclick="check()">Confirmar 💞</button>
-</div>
-
-<div id="counter" style="display:none;">
-  <h2>Nosso tempo juntinhos 💘</h2>
-  <h3 id="time"></h3>
-</div>
-
-<canvas id="mazeCanvas" width="300" height="300"></canvas>
-
-<div id="slideshow" style="display:none;">
-  <h2>Nossas fotinhas 💞</h2>
-  <p>As imagens não foram incluídas no ZIP (não foram enviadas).</p>
-</div>
-
-<script>
-const answers = {
-  q1: ["ifce", "ifce de paracuru"],
-  q2: ["evento da sebrae", "no ônibus", "ônibus"],
-  q3: ["19"],
-  q4: ["23"],
-  q5: ["adyla", "adyla moreira", "adyla da silva moreira"],
-  q6: ["eduardo", "eduardo akilles"]
-};
-
-function check(){
-  for(let i=1;i<=6;i++){
-    let v = document.getElementById("q"+i).value.toLowerCase().trim();
-    if(!answers["q"+i].includes(v)){
-      alert("Resposta "+i+" está errada 😢 Tenta de novo, amor");
-      return;
-    }
-  }
-
-  document.getElementById("quiz").style.display="none";
-  document.getElementById("counter").style.display="block";
-  document.getElementById("mazeCanvas").style.display="block";
-  startCounter();
-}
-
-function startCounter(){
-  const start = new Date("2024-10-09");
-  setInterval(()=>{
-    let now = new Date();
-    let diff = now - start;
-
-    let days = Math.floor(diff / 86400000);
-    let weeks = Math.floor(days / 7);
-    let months = Math.floor(days / 30.4);
-    let hours = Math.floor(diff / 3600000);
-
-    document.getElementById("time").innerText = `${months} meses • ${weeks} semanas • ${days} dias • ${hours} horas`;
-  },1000);
-}
-</script>
+  <h2>Arquivo compactado com sucesso 🎁</h2>
 </body>
 </html>
